@@ -38,21 +38,15 @@ def normalize(cls):
         return cls
 
 def count_people(model, img):
-    sum = 0
-    for i in (0, 90, 180, 270):
-        img = img.rotate(i, Image.NEAREST, expand = 1)
-        _, probs = model.detect(img, landmarks=False)
-        new_probs = []
-        for prob in probs:
-            try:
-                if float(prob) > 0.89:
-                    new_probs.append(float(prob))
-            except:
-                break
-        sum += len(new_probs)
-    cls = round(sum/4)
-    print(sum)
-    return normalize(cls)
+    _, probs = model.detect(img, landmarks=False)
+    new_probs = []
+    for prob in probs:
+        try:
+            if float(prob) > 0.89:
+                new_probs.append(prob)
+        except:
+            pass
+    return normalize(len(new_probs))
 
 if __name__ == "__main__":
     print(get_clss())

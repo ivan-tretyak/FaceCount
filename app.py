@@ -17,7 +17,7 @@ def internal_server_error(e):
 def post():
     print(request.json)
     cls = main(model, request.json)
-    data = {'data': {'type': 'people detect', 'class_name':cls[1], 'class_number':cls[0]}}
+    data = {'data': {'type': 'people detect', 'class_name':cls[0], 'class_number':cls[1]}}
     return jsonify(data)
 
 
